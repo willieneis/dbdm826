@@ -1,0 +1,17 @@
+zorder -n 2 1 0 
+zorder -n 3 1 1 
+horder -n 2 2 0 
+izorder -n 3 0    
+izorder -n 2 12
+horder -n 2 0 0 
+horder -n 1 1 1 
+horder -n 2 1 1
+ihorder -n 2 0 
+ihorder -n 1 3
+ihorder -n 2 4
+zorder -n 4 11 11
+zorder -n 4 10 12
+horder -n 7 101 102
+horder -n 8 101 102
+ihorder -n 8 3010
+ihorder -n 8 2000
