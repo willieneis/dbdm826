@@ -1,0 +1,194 @@
+Multimedia Databases and Data Mining (15-826)
+Willie Neiswanger
+Homework 1
+Question 1
+
+1. 30 lines in movies-mini.csv.
+
+2. To parse the movie file into a csv called movies-short.csv, I used the
+command:
+    $ python parseMoviesIntoCsv.py movies-short.txt
+
+3. This was create with the commands:
+    $ sqlite3 movies-short.db
+    sqlite> create table movies(productId,userId,helpfulness,score,time);
+    sqlite> .separator ","
+    sqlite> .import movies-short.csv movies
+
+4. This command returned 253059 unique movies.
+
+5. This command returned the productId B002QZ1RS6, which corresponded with the movie
+INSANITY DVD Workout.
+
+6. This command returned the userId A16CZRQL23NOIW, which corresponded with the user
+Hiram Gomez Pardo. 
+
+7. This command returned the productIds: B007MDB6RO, 0578046725, B00006B1HI,
+B00006B1HK, and B00006LSE8, which corresponded with the movies:
+GCB: The Complete First Season (2012),
+Food Production Systems for a Backyard or Small Farm,
+9/11 - The Filmmakers' Commemorative Edition (2002),
+9/11 - The Filmmakers' Commemorative Edition [VHS] (2002),
+and 9/11 (2002)
+The wall-clock running time of this query was 1m34.501s.
+
+8.  After creating indices on these columns, the wall-clock running time of
+this query was 3.797.
+
+9. For a non-indexed database, the output is:
+0|Trace|0|0|0||00|
+1|OpenEphemeral|1|3|0|keyinfo(1,-BINARY)|00|
+2|Integer|5|1|0||00|
+3|SorterOpen|2|3|0|keyinfo(1,BINARY)|00|
+4|Integer|0|7|0||00|
+5|Integer|0|6|0||00|
+6|Null|0|10|10||00|
+7|Gosub|9|59|0||00|
+8|Goto|0|73|0||00|
+9|OpenRead|0|2|0|4|00|
+10|Rewind|0|17|0||00|
+11|Column|0|0|12||00|
+12|Sequence|2|13|0||00|
+13|Column|0|3|14||00|
+14|MakeRecord|12|3|15||00|
+15|SorterInsert|2|15|0||00|
+16|Next|0|11|0||01|
+17|Close|0|0|0||00|
+18|OpenPseudo|3|15|3||00|
+19|SorterSort|2|64|0||00|
+20|SorterData|2|15|0||00|
+21|Column|3|0|11||20|
+22|Compare|10|11|1|keyinfo(1,BINARY)|00|
+23|Jump|24|28|24||00|
+24|Move|11|10|1||00|
+25|Gosub|8|39|0||00|
+26|IfPos|7|64|0||00|
+27|Gosub|9|59|0||00|
+28|Column|3|2|12||00|
+29|AggStep|0|12|3|avg(1)|01|
+30|Column|3|0|13||00|
+31|AggStep|0|13|4|count(1)|01|
+32|Column|3|0|2||00|
+33|Integer|1|6|0||00|
+34|SorterNext|2|20|0||00|
+35|Gosub|8|39|0||00|
+36|Goto|0|64|0||00|
+37|Integer|1|7|0||00|
+38|Return|8|0|0||00|
+39|IfPos|6|41|0||00|
+40|Return|8|0|0||00|
+41|AggFinal|3|1|0|avg(1)|00|
+42|AggFinal|4|1|0|count(1)|00|
+43|Integer|100|16|0||00|
+44|Le|16|40|4||6a|
+45|Copy|2|17|0||00|
+46|Copy|3|18|0||00|
+47|MakeRecord|17|2|16||00|
+48|SCopy|3|19|0||00|
+49|Sequence|1|20|0||00|
+50|Move|16|21|1||00|
+51|MakeRecord|19|3|22||00|
+52|IdxInsert|1|22|0||00|
+53|IfZero|1|56|0||00|
+54|AddImm|1|-1|0||00|
+55|Goto|0|58|0||00|
+56|Last|1|0|0||00|
+57|Delete|1|0|0||00|
+58|Return|8|0|0||00|
+59|Null|0|2|0||00|
+60|Null|0|5|0||00|
+61|Null|0|3|0||00|
+62|Null|0|4|0||00|
+63|Return|9|0|0||00|
+64|OpenPseudo|4|16|2||00|
+65|Sort|1|71|0||00|
+66|Column|1|2|16||00|
+67|Column|4|0|17||20|
+68|Column|4|1|18||00|
+69|ResultRow|17|2|0||00|
+70|Next|1|66|0||00|
+71|Close|4|0|0||00|
+72|Halt|0|0|0||00|
+73|Transaction|0|0|0||00|
+74|VerifyCookie|0|3|0||00|
+75|TableLock|0|2|0|movies|00|
+76|Goto|0|9|0||00|
+
+And when I use explain query plan select, the output is:
+0|0|0|SCAN TABLE movies (~1000000 rows)
+0|0|0|USE TEMP B-TREE FOR GROUP BY
+0|0|0|USE TEMP B-TREE FOR ORDER BY
+
+And for an indexed database, the output is:
+0|Trace|0|0|0||00|
+1|OpenEphemeral|1|3|0|keyinfo(1,-BINARY)|00|
+2|Integer|5|1|0||00|
+3|Noop|0|0|0||00|
+4|Integer|0|7|0||00|
+5|Integer|0|6|0||00|
+6|Null|0|10|10||00|
+7|Gosub|9|50|0||00|
+8|Goto|0|64|0||00|
+9|OpenRead|3|462622|0|keyinfo(2,BINARY,BINARY)|00|
+10|Rewind|3|25|12|0|00|
+11|Column|3|0|11||00|
+12|Compare|10|11|1|keyinfo(1,BINARY)|00|
+13|Jump|14|18|14||00|
+14|Move|11|10|1||00|
+15|Gosub|8|30|0||00|
+16|IfPos|7|55|0||00|
+17|Gosub|9|50|0||00|
+18|Column|3|1|13||00|
+19|AggStep|0|13|3|avg(1)|01|
+20|Column|3|0|13||00|
+21|AggStep|0|13|4|count(1)|01|
+22|Column|3|0|2||00|
+23|Integer|1|6|0||00|
+24|Next|3|11|0||00|
+25|Close|3|0|0||00|
+26|Gosub|8|30|0||00|
+27|Goto|0|55|0||00|
+28|Integer|1|7|0||00|
+29|Return|8|0|0||00|
+30|IfPos|6|32|0||00|
+31|Return|8|0|0||00|
+32|AggFinal|3|1|0|avg(1)|00|
+33|AggFinal|4|1|0|count(1)|00|
+34|Integer|100|12|0||00|
+35|Le|12|31|4||6a|
+36|Copy|2|14|0||00|
+37|Copy|3|15|0||00|
+38|MakeRecord|14|2|12||00|
+39|SCopy|3|16|0||00|
+40|Sequence|1|17|0||00|
+41|Move|12|18|1||00|
+42|MakeRecord|16|3|19||00|
+43|IdxInsert|1|19|0||00|
+44|IfZero|1|47|0||00|
+45|AddImm|1|-1|0||00|
+46|Goto|0|49|0||00|
+47|Last|1|0|0||00|
+48|Delete|1|0|0||00|
+49|Return|8|0|0||00|
+50|Null|0|2|0||00|
+51|Null|0|5|0||00|
+52|Null|0|3|0||00|
+53|Null|0|4|0||00|
+54|Return|9|0|0||00|
+55|OpenPseudo|4|12|2||00|
+56|Sort|1|62|0||00|
+57|Column|1|2|12||00|
+58|Column|4|0|14||20|
+59|Column|4|1|15||00|
+60|ResultRow|14|2|0||00|
+61|Next|1|57|0||00|
+62|Close|4|0|0||00|
+63|Halt|0|0|0||00|
+64|Transaction|0|0|0||00|
+65|VerifyCookie|0|4|0||00|
+66|TableLock|0|2|0|movies|00|
+67|Goto|0|9|0||00|
+
+And when I use explain query plan select, the output is:
+0|0|0|SCAN TABLE movies USING COVERING INDEX benjo (~1000000 rows)
+0|0|0|USE TEMP B-TREE FOR ORDER BY

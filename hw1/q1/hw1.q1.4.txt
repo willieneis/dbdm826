@@ -1,0 +1,3 @@
+select 'implement your SQL queries';
+
+select count(distinct productId) from movies;

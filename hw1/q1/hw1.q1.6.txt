@@ -1,0 +1,3 @@
+select 'implement your SQL queries';
+
+select userId from movies group by userId order by count(*) desc limit 1;
