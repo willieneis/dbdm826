@@ -3,6 +3,9 @@ Willie Neiswanger
 Homework 1
 Question 1
 
+Note: this file was formatted by hand using output from: $ make all (in order
+to make it readable).
+
 1. 30 lines in movies-mini.csv.
 
 2. To parse the movie file into a csv called movies-short.csv, I used the
@@ -194,4 +197,9 @@ And when I use "explain query plan select ...", the output is:
 0|0|0|USE TEMP B-TREE FOR ORDER BY
 
 
-I would justify the speed-up produced by the indices by the fact that 
+I would justify the speed-up produced by the indices by the fact that before
+the indexing, you begin with a sequential scan. However, after the indexing you
+instead scan the table with a covering index. Furthermore, before indexing, you
+use two temporary B-trees--one for group by and one for order by. After
+indexing, you eliminate one of the B-trees and instead only use a temporary
+B-tree for order by. The combination of these two factors result in a speed-up.

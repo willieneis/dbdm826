@@ -1,0 +1,5 @@
+select 'implement your SQL queries';
+
+create table movies(productId,userId,helpfulness,score,time);
+.separator ","
+.import movies-short.csv movies

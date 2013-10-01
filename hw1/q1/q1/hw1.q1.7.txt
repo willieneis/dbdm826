@@ -4,8 +4,3 @@ select productId,avg(score) from movies
 group by productId 
 having count(productId)>100
 order by avg(score) desc limit 5;
-
-/*explain query plan select productId,avg(score) from movies*/
-/*group by productId */
-/*having count(productId)>100*/
-/*order by avg(score) desc limit 5;*/

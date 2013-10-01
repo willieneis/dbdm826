@@ -1,0 +1,3 @@
+select 'implement your SQL queries';
+
+create index benjo on movies(productId, score);

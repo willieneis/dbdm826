@@ -1,0 +1,37 @@
+Multimedia Databases and Data Mining (15-826)
+Willie Neiswanger
+Homework 1
+Question 3
+
+My (python) program is called q3. It can be used in the following way:
+
+In the command line (some examples below):
+$ ./q3 zorder -n 3 0 1 
+$ ./q3 izorder -n 2 15
+$ ./q3 horder -n 2 0 1
+$ ./q3 ihorder -n 2 3
+
+Or with an input file of the same form as hw1-q3.input.txt, in the following way:
+$ cat hw1-q3.input.txt | ./q3
+$ cat inp.txt | ./q3
+
+The command:
+$ cat inp.txt | ./q3
+gives the results:
+2
+3
+14
+0 0
+2 2
+0
+2
+2
+0 0
+1 0
+0 2
+207
+216
+10279
+10285
+57 33
+24 36
